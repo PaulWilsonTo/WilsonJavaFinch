@@ -1,0 +1,42 @@
+menu a {
+  padding: 0px 10px;
+}
+
+table {
+  border-spacing: 0;
+}
+
+tr, th, td {
+  border: 1px solid black;
+  margin: 0;
+  padding: 5px;
+}
+
+cols {
+  display:grid;
+  grid-template-columns: 50% 50%;
+}
+
+grid {
+  display:grid;
+  grid-template-columns: 325px 100%;
+}
+
+canvas {
+  border: 1px solid black;
+  position: absolute;
+  width: 300px; height: 300px;
+  left: 10px; top: 10px;
+}
+
+#canvasFinch {
+  z-index: 0;
+}
+
+#connectFinch {
+  display: none;
+}
+
+#lightsFinch span {
+  font-size: xxx-large;
+}

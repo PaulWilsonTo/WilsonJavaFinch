@@ -1,0 +1,47 @@
+<!--
+  © Paul Wilson 2021
+    Published under the Simple Public License:
+    https://opensource.org/licenses/Simple-2.0
+  For controlling BirdBrain Technologies Finch 2.0
+    with Java and Python in online IDE like ReplIt
+    see https://www.birdbraintechnologies.com/
+//-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Wilson Finch</title>
+    <link href="/finch.css" rel="stylesheet">
+  </head>
+  <body>
+    <menu>
+      <a href="/howto.html" target="_blank">How-To</a>
+      <a href="/docs.html" target="_blank">Documentation</a>
+      <a href="/about.html" target="_blank">About</a>
+    </menu>
+    <cols>    
+      <div>
+        <h1>Your Code</h1>
+        <ul>
+        <#list fileList as fileName>
+          <#if !fileName?starts_with("Test")>
+          <li><a href="/finch/${fileName}" target="_blank">${fileName}</a></li>
+          </#if>
+        </#list>
+        </ul>
+
+      </div>
+      <div>
+        <h2>Examples</h2>
+        <ul>
+        <#list fileList as fileName>
+          <#if fileName?starts_with("Test")>
+          <li><a href="/finch/${fileName}" target="_blank">${fileName}</a></li>
+          </#if>
+        </#list>
+        </ul>
+      </div>
+    </cols>
+  </body>
+</html>

@@ -1,0 +1,428 @@
+<!--
+  © Paul Wilson 2021
+    Published under the Simple Public License:
+    https://opensource.org/licenses/Simple-2.0
+  For controlling BirdBrain Technologies Finch 2.0
+    with Java and Python in online IDE like ReplIt
+    see https://www.birdbraintechnologies.com/
+//-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Wilson Finch Documentation</title>
+    <link href="/finch.css" rel="stylesheet">
+  </head>
+  <body>
+    <menu>
+      <a href="/howto.html">How-To</a>
+      Documentation:
+      <a href="#Finch">Finch</a>
+      <a href="#LedGrid">LedGrid</a>
+      <a href="#Music">Music</a>
+      <a href="#Sensor">Sensor</a>
+      <a href="/about.html">About</a>
+    </menu>
+    <table>
+      <tr>
+        <th>Signature</th>
+        <th>Description</th>
+        <th>Java</th>
+        <th>Python</th>
+      </tr>
+      <tr>
+        <td><h1 id="Finch">wilson.Finch</h1></td>
+        <td></td>
+        <td>import wilson.Finch;</td>
+        <td>from wilson import Finch</td>
+      </tr>
+      <tr>
+        <td><h3>Finch Constructors</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Finch()</td>
+        <td>defaults: prompt = "Connect Finch", initX = 0, initY = 0</td>
+        <td>Finch finch = new Finch();</td>
+        <td>finch = Finch()</td>
+      </tr>
+      <tr>
+        <td>Finch(prompt : String, initX : double, initY : double)</td>
+        <td>Give instructions for Finch placement.</td>
+        <td>Finch finch = new Finch("Place Lower Left", -10, -10);</td>
+        <td>finch = Finch("Place Lower Left", -10, -10)</td>
+      </tr>
+      <tr>
+        <td><h3>Finch Methods</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>getTarget() : int</td>
+        <td>Is this Finch #1, #2, #3, ...?</td>
+        <td>int target = finch.getTarget();</td>
+        <td>target = finch.getTarget()</td>
+      </tr>
+      <tr>
+        <td>getDevice() : String</td>
+        <td>What is the Device Identifier?</td>
+        <td>String device = finch.getDevice();</td>
+        <td>device = finch.getDevice()</td>
+      </tr>
+      <tr>
+        <td>getName() : String</td>
+        <td>What is the Fancy Finch Name?</td>
+        <td>String name = finch.getName();</td>
+        <td>name = finch.getName()</td>
+      </tr>
+      <tr>
+        <td>getVersion() : int</td>
+        <td>Is the Microbit v1, v2, or Mock (0)?</td>
+        <td>int version = finch.getVersion();</td>
+        <td>version = finch.getVersion()</td>
+      </tr>
+      <tr>
+        <td>speed() : double</td>
+        <td>What is the current speed setting?</td>
+        <td>double speed = finch.speed();</td>
+        <td>speed = finch.speed()</td>
+      </tr>
+      <tr>
+        <td>speed(factor : double) : void</td>
+        <td>Set speed from 1 to 10 (default 5).</td>
+        <td>finch.speed(1.0-10.0);</td>
+        <td>finch.speed(1.0-10.0)</td>
+      </tr>
+      <tr>
+        <td>forward(distance : double) : void</td>
+        <td>Move forward distance in centimeters. Uses the current speed setting automatically.</td>
+        <td>finch.forward(centimeters);</td>
+        <td>finch.forward(centimeters)</td>
+      </tr>
+      <tr>
+        <td>backward(distance : double) : void</td>
+        <td>Move backward distance in centimeters. Uses the current speed setting automatically.</td>
+        <td>finch.backward(centimeters);</td>
+        <td>finch.backward(centimeters)</td>
+      </tr>
+      <tr>
+        <td>right(angle : double) : void</td>
+        <td>Turn right in place angle in degrees. Uses the current speed setting automatically.</td>
+        <td>finch.right(degrees);</td>
+        <td>finch.right(degrees)</td>
+      </tr>
+      <tr>
+        <td>left(angle : double) : void</td>
+        <td>Turn left in place angle in degrees. Uses the current speed setting automatically.</td>
+        <td>finch.left(degrees);</td>
+        <td>finch.left(degrees)</td>
+      </tr>
+      <tr>
+        <td>runMotors(leftSpeed : double, rightSpeed : double) : void</td>
+        <td>Run the motors separately and indefinitely. Make circlular arcs with different left and right speeds. Control with sensors instead of specified distance or angles. Note web visuals will not be very helpful with this.</td>
+        <td>finch.runMotors(-10.0 to +10.0, -10.0 to +10.0);</td>
+        <td>finch.runMotors(-10.0 to +10.0, -10.0 to +10.0)</td>
+      </tr>
+      <tr>
+        <td>stopAll() : void</td>
+        <td>Stop all of motors, lights, leds, and sound. Use runMotors(0, 0) to only stop running motors.</td>
+        <td>finch.stopAll();</td>
+        <td>finch.stopAll()</td>
+      </tr>
+      <tr>
+        <td>beakColor(red : int, green : int, blue : int) : void</td>
+        <td>Set the color of the beak light with RGB values.</td>
+        <td>finch.beakColor(0-255, 0-255, 0-255);</td>
+        <td>finch.beakColor(0-255, 0-255, 0-255)</td>
+      </tr>
+      <tr>
+        <td>tailColor(index : int, red : int, green : int, blue : int) : void</td>
+        <td>Set the color of the tail lights with RGB values. Use index #1, #2, #3, or #4 for specific tail lights. Use index #0 to set all tail lights at once. Use index # -1 to set the beak light, and anything else (like 5) for all lights.</td>
+        <td>finch.tailColor(0-255, 0-255, 0-255);</td>
+        <td>finch.tailColor(0-255, 0-255, 0-255)</td>
+      </tr>
+      <tr>
+        <td>flashLeds(phrase : String) : void</td>
+        <td>Flash the letters in the phrase one at a time.</td>
+        <td>finch.flashLeds("Wilson Java Finch");</td>
+        <td>finch.flashLeds("Wilson Python Finch")</td>
+      </tr>
+      <tr>
+        <td>customLeds(ledGrid : LedGrid) : void</td>
+        <td>Set the specific LEDs by row and column.</td>
+        <td>LedGrid ledGrid = new LedGrid();
+          <br>ledGrid.setLed(2,2);
+          <br>finch.customLeds(ledGrid);</td>
+        <td>ledGrid = LedGrid()
+          <br>ledGrid.setLed(2,2)
+          <br>finch.customLeds(ledGrid)</td>
+      </tr>
+      <tr>
+        <td>playSound(midiNote : int, duration : int) : void</td>
+        <td>Play one MIDI note for a specific duration. Middle C is MIDI 60 and octaves span 12 tones total. Duration is in milliseconds, use note 0 to play no sound.</td>
+        <td>finch.playSound(32-135, milliseconds);</td>
+        <td>finch.playSound(32-135, milliseconds)</td>
+      </tr>
+      <tr>
+        <td>playMusic(music : Music) : void</td>
+        <td>Specify an entire musical score to play.</td>
+        <td>Music music = new Music();
+          <br>music.addNote(60,1000);
+          <br>finch.playMusic(music);</td>
+        <td>music = Music()
+          <br>music.addNote(60,1000)
+          <br>finch.playMusic(music)</td>
+      </tr>
+      <tr>
+        <td>getSensors() : Sensor</td>
+        <td>Get all the current sensor values. Use with runMotors to control based on sensors. Note that forward, backward, left, and right do not allow sensors to be used until specified movement is already complete.</td>
+        <td>Sensor sensor = finch.getSensors();</td>
+        <td>sensor = finch.getSensors()</td>
+      </tr>
+      <tr>
+        <td>resetTicks() : void</td>
+        <td>Reset the current sensor left and right tick (distance) counters to zero (0).</td>
+        <td>finch.resetTicks();</td>
+        <td>finch.resetTicks()</td>
+      </tr>
+      <tr>
+        <td>calibrate() : void</td>
+        <td>Calibrate the accelerometers and magnetometers. Required to get reliable compass reading from sensors. Note that this does not work well - probably a Wilson limitation.</td>
+        <td>finch.calibrate();</td>
+        <td>finch.calibrate()</td>
+      </tr>
+      <tr>
+        <td><h3>Static Methods</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>input(prompt : String) : String</td>
+        <td>Get user input response for specified prompt.</td>
+        <td>String response = Finch.input("Enter your response");</td>
+        <td>response = Finch.input("Enter your response")</td>
+      </tr>
+      <tr>
+        <td>print(message : Object...) : void</td>
+        <td>Print (display) message(s) on the web screen.</td>
+        <td>Finch.print("Wilson Java Finch");</td>
+        <td>Finch.print("Wilson Python Finch")</td>
+      </tr>
+      <tr>
+        <td>debug(message : Object...) : void</td>
+        <td>Log message(s) on the web developer console.</td>
+        <td>Finch.debug("Wilson Java Finch");</td>
+        <td>Finch.debug("Wilson Python Finch")</td>
+      </tr>
+      <tr>
+        <td>sleep(milliseconds : int) : void</td>
+        <td>Pause (wait) before next line of code.</td>
+        <td>Finch.sleep(milliseconds);</td>
+        <td>Finch.sleep(milliseconds)</td>
+      </tr>
+      <tr>
+        <td><h1 id="LedGrid">wilson.LedGrid</h1></td>
+        <td></td>
+        <td>import wilson.LedGrid;</td>
+        <td>from wilson import LedGrid</td>
+      </tr>
+      <tr>
+        <td><h3>LedGrid Constructors</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>LedGrid()</td>
+        <td>Use with finch.customLeds(ledGrid)</td>
+        <td>LedGrid ledGrid = new LedGrid();</td>
+        <td>ledGrid = LedGrid()</td>
+      </tr>
+      <tr>
+        <td><h3>LedGrid Methods</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>setLed(row : int, col : int, led : boolean) : void</td>
+        <td>Set LED on or off by row and column</td>
+        <td>ledGrid.setLed(0-4, 0-4, true/false);</td>
+        <td>ledGrid.setLed(0-4, 0-4, True/False)</td>
+      </tr>
+      <tr>
+        <td>setLed(row : int, col : int) : void</td>
+        <td>Set LED on only by row and column</td>
+        <td>ledGrid.setLed(0-4, 0-4);</td>
+        <td>ledGrid.setLed(0-4, 0-4)</td>
+      </tr>
+      <tr>
+        <td><h1 id="Music">wilson.Music</h1></td>
+        <td></td>
+        <td>import wilson.Music;</td>
+        <td>from wilson import Music</td>
+      </tr>
+      <tr>
+        <td><h3>Music Constructors</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Music()</td>
+        <td>Use with finch.playMusic(music)</td>
+        <td>Music music = new Music();</td>
+        <td>music = Music()</td>
+      </tr>
+      <tr>
+        <td><h3>Music Methods</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>addNote(midiNote : int, duration : int) : void</td>
+        <td>Set one MIDI note for a specific duration. Middle C is MIDI 60 and octaves span 12 tones total. Duration is in milliseconds, use note 0 to play no sound.</td>
+        <td>music.addNote(32-135, milliseconds);</td>
+        <td>music.addNote(32-135, milliseconds)</td>
+      </tr>
+      <tr>
+        <td><h1 id="Sensor">wilson.Sensor</h1></td>
+        <td></td>
+        <td>import wilson.Sensor;</td>
+        <td>from wilson import Sensor</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Sensor sensor = finch.getSensors();</td>
+        <td>sensor = finch.getSensors()</td>
+      </tr>
+      <tr>
+        <td><h3>Sensor Methods</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>wallDistance() : double</td>
+        <td>Ultrasonic distance to obstacle in centimeters. The distance sensor is located beneath the finch beak.</td>
+        <td>double wall = sensor.wallDistance();</td>
+        <td>wall = sensor.wallDistance()</td>
+      </tr>
+      <tr>
+        <td>leftDistance() : double</td>
+        <td>Distance in centimeters that left wheel has moved since last finch.resetTicks().</td>
+        <td>double left = sensor.leftDistance();</td>
+        <td>left = sensor.leftDistance()</td>
+      </tr>
+      <tr>
+        <td>rightDistance() : double</td>
+        <td>Distance in centimeters that right wheel has moved since last finch.resetTicks().</td>
+        <td>double right = sensor.rightDistance();</td>
+        <td>right = sensor.rightDistance()</td>
+      </tr>
+      <tr>
+        <td>leftLine() : int</td>
+        <td>Relative measurement of amount of light on the bottom left side of the finch. The line following sensors are located on the bottom of the finch on both sides of the power button. They work by how much of infrared emitted light bounces back, with white paper bouncing back much more than black tape - thus allowing the finch to "follow" a line.</td>
+        <td>int leftLine = sensor.leftLine();</td>
+        <td>leftLine = sensor.leftLine()</td>
+      </tr>
+      <tr>
+        <td>rightLine() : int</td>
+        <td>Relative measurement of amount of light on the bottom right side of the finch. The line following sensors are located on the bottom of the finch on both sides of the power button. They work by how much of infrared emitted light bounces back, with white paper bouncing back much more than black tape - thus allowing the finch to "follow" a line.</td>
+        <td>int rightLine = sensor.rightLine();</td>
+        <td>rightLine = sensor.rightLine()</td>
+      </tr>
+      <tr>
+        <td>leftLight() : int</td>
+        <td>Relative measurement of amount of light on the top left side of the finch. The light sensors are located on the top of the finch on both sides.</td>
+        <td>int leftLight = sensor.leftLight();</td>
+        <td>leftLight = sensor.leftLight()</td>
+      </tr>
+      <tr>
+        <td>rightLight() : int</td>
+        <td>Relative measurement of amount of light on the top right side of the finch. The light sensors are located on the top of the finch on both sides.</td>
+        <td>int rightLight = sensor.rightLight();</td>
+        <td>rightLight = sensor.rightLight()</td>
+      </tr>
+      <tr>
+        <td>isWorking() : boolean</td>
+        <td>The position control flag indicates when the motors have finished their motion, but only for when attempting to move a specific distance, otherwise it is always false..</td>
+        <td>boolean working = sensor.isWorking();</td>
+        <td>working = sensor.isWorking()</td>
+      </tr>
+      <tr>
+        <td>battery() : int</td>
+        <td>Relative battery level.</td>
+        <td>int battery = sensor.battery();</td>
+        <td>battery = sensor.battery()</td>
+      </tr>
+      <tr>
+        <td>sound() : int</td>
+        <td>Only for Microbit v2: relative sound level.</td>
+        <td>int sound = sensor.sound();</td>
+        <td>sound = sensor.sound()</td>
+      </tr>
+      <tr>
+        <td>temperature() : int</td>
+        <td>Only for Microbit v2: temperature in Celsius.</td>
+        <td>int temperature = sensor.temperature();</td>
+        <td>temperature = sensor.temperature()</td>
+      </tr>
+      <tr>
+        <td>touch() : boolean</td>
+        <td>Only for Microbit v2: indicates if the touch pad sensor on the Microbit is being touched.</td>
+        <td>boolean touch = sensor.touch();</td>
+        <td>touch = sensor.touch()</td>
+      </tr>
+      <tr>
+        <td>button(String button) : boolean</td>
+        <td>Indicates if the A or B button on the Microbit is being pressed.</td>
+        <td>boolean button = sensor.button("A/B");</td>
+        <td>button = sensor.button("A/B")</td>
+      </tr>
+      <tr>
+        <td>isShaking() : boolean</td>
+        <td>Indicates if Microbit is being shaken.</td>
+        <td>boolean shaking = sensor.isShaking();</td>
+        <td>shaking = sensor.isShaking()</td>
+      </tr>
+      <tr>
+        <td>calibrated() : boolean</td>
+        <td>Indicates if the compass has been calibrated.</td>
+        <td>boolean calibrated = sensor.calibrated();</td>
+        <td>calibrated = sensor.calibrated()</td>
+      </tr>
+      <tr>
+        <td>compass() : int</td>
+        <td>Should indicate the compass direction when it has been calibrated. This is actually a calculation from the various accelerometer and magnetometer sensor values, adjusted for the angle of the Microbit on the finch. Note that this does not work well - probably a Wilson limitation.</td>
+        <td>int compass = sensor.compass();</td>
+        <td>compass = sensor.compass()</td>
+      </tr>
+      <tr>
+        <td>accelerometer(axis : String) : double</td>
+        <td>Indicates amount of acceleration in direction of given axis. Note that when sitting still only the Z-axis should have a non-zero value due to gravity.</td>
+        <td>double accelerometer = sensor.accelerometer("X/Y/Z");</td>
+        <td>accelerometer = sensor.accelerometer("X/Y/Z")</td>
+      </tr>
+      <tr>
+        <td>magnetometer(axis : String) : double</td>
+        <td>Indicates amount of magnetic field in direction of given axis. Combined with the accelerometer this allows for the compass calculation.</td>
+        <td>double magnetometer = sensor.magnetometer("X/Y/Z");</td>
+        <td>magnetometer = sensor.magnetometer("X/Y/Z")</td>
+      </tr>
+      <tr>
+        <td>rawData() : Object[]</td>
+        <td>Raw sensor values composed of 20 bytes. See <a href="https://github.com/BirdBrainTechnologies/Protocols/blob/master/MicroBitProtocols.md#FinchBLE" target="_blank">BirdBrainTechnologies</a> for the documentation.</td>
+        <td>Object[] rawData = sensor.rawData();</td>
+        <td>rawData = sensor.rawData()</td>
+      </tr>
+    </table>
+  </body>
+</html>

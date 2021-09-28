@@ -1,0 +1,52 @@
+<!--
+  © Paul Wilson 2021
+    Published under the Simple Public License:
+    https://opensource.org/licenses/Simple-2.0
+  For controlling BirdBrain Technologies Finch 2.0
+    with Java and Python in online IDE like ReplIt
+    see https://www.birdbraintechnologies.com/
+//-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Wilson Finch ${runModule}</title>
+    <link href="/finch.css" rel="stylesheet">
+    <script src="https://finchblox.birdbraintechnologies.com/js/fancyNames.js"></script>
+  </head>
+  <body>
+    <grid>
+      <div id="canvasStack">
+        <canvas id="canvasFinch"></canvas>
+      </div>
+      <div>
+        <h2>${runModule}: Finch <span id="currentFinch"></span></h2>
+        <button id="connectFinch" onclick="onConnectFinch()">Connect Finch</button>
+        <select id="selectFinch" onchange="onSelectFinch()"></select>
+        <br>LEDs: <div id="ledsFinch"></div>
+        <div id="lightsFinch">
+          Beak: <span id="lightFinch0">•</span>
+          Tail: <span id="lightFinch1">•</span>
+          <span id="lightFinch2">•</span>
+          <span id="lightFinch3">•</span>
+          <span id="lightFinch4">•</span>
+        </div>
+        <div id="printFinch"></div>
+      </div>
+    </grid>
+    <script>
+      uniqueId = "${uniqueId}";
+      runModule = "${runModule}";
+    </script>
+    <script src="/common.js"></script>
+    <script src="/command.js"></script>
+    <script src="/message.js"></script>
+    <script src="/status.js"></script>
+    <script src="/mocks.js"></script>
+    <script src="/device.js"></script>
+    <script src="/canvas.js"></script>
+    <script src="/robot.js"></script>
+    <script src="/main.js"></script>
+  </body>
+</html>

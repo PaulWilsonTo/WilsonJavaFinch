@@ -1,0 +1,1 @@
+run = "find -name '*.java' > .lsjava; javac -classpath .:target/dependency/* @.lsjava; java -classpath .:target/dependency/* webapp.Start"
