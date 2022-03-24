@@ -50,6 +50,7 @@ class Device
     this.rxChar = null;
     this.version = -1;
     this.name = null;
+    this._reading = false;
     this._disconnected = null;
   }
 
@@ -61,20 +62,16 @@ class Device
       let service = await gatt.getPrimaryService(Device.serviceId);
       this.txChar = await service.getCharacteristic(Device.txCharId);
       this.rxChar = await service.getCharacteristic(Device.rxCharId);
-      await this.rxChar.startNotifications();
-
       this.name = getDeviceFancyName(this.device.name);
 
-      await this.sendCommand(Device.getVersionCmd);
-      let versionData = await this.getVersion();
+      await this.rxChar.startNotifications();
+			
+      this.rxChar.addEventListener("characteristicvaluechanged",
+        (event) => { this._onRxValueChanged(event); }
+      );
 
-      let startNotifyCmd = null;
-      switch (versionData.length) {
-        case 3: this.version = 1; startNotifyCmd = Device.startNotify1Cmd; break;
-        case 4: this.version = 2; startNotifyCmd = Device.startNotify2Cmd; break;
-        default: this.version = 0; startNotifyCmd = Device.startNotify0Cmd;
-      }
-      await this.sendCommand(startNotifyCmd);
+      await this.sendCommand(Device.getVersionCmd);
+			await this.setVersion();
 
       this._disconnected = this._onDisconnected.bind(this);
       this.device.addEventListener("gattserverdisconnected", this._disconnected);
@@ -94,18 +91,52 @@ class Device
     return;
   }
 
-  async getVersion() {
-    let dataList = null;
-    do {
-      if (!this.rxChar) return;
-      let dataView = await this.rxChar.readValue();
-      dataList = new Uint8Array(dataView.buffer);
-    } while (![2,3,4].includes(dataList.length));
-    return dataList;
+  async _onRxValueChanged(event) {
+    if (this._reading) return;
+    this._reading = true;
+    
+    let dataView = event.target.value;
+    let dataList = new Uint8Array(dataView.buffer);
+    let deviceName = event.target.service.device.name;
+
+    if (this.version == -1) {
+      await this.getVersion(dataList);
+      this._reading = false;
+    }
+    else {
+      let status = new Status(this.target, dataList);
+      setTimeout(() => {
+        Main.updateStatus(this, status);
+        this._reading = false;
+      }, 50);
+    }
+
+  }
+
+	async setVersion() {
+		if (this.device._isMock) {
+			this.version = 0;
+		}
+		else {
+			while (this.version == -1) {
+				await new Promise(resolve => setTimeout(resolve, 50));
+			}
+		}
+	}
+  
+  async getVersion(dataList) {
+    if (![2,3,4].includes(dataList.length)) return;
+    let startNotifyCmd = null;
+    switch (dataList.length) {
+      case 3: this.version = 1; startNotifyCmd = Device.startNotify1Cmd; break;
+      case 4: this.version = 2; startNotifyCmd = Device.startNotify2Cmd; break;
+      default: this.version = 0; startNotifyCmd = Device.startNotify0Cmd;
+    }
+    await this.sendCommand(startNotifyCmd);
   }
 
   getStatus() {
-    if (!this.rxChar) return;
+    if (this.version != 0) return;
     this.rxChar.readValue()
     .then((dataView) => {
       let dataList = new Uint8Array(dataView.buffer);

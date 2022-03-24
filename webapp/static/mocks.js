@@ -15,6 +15,7 @@ class MockDevice extends EventTarget
     this.name = "FNF" + randomId;
     this.gatt = new MockGatt(this);
     this._version = 0;
+    this._isMock = true;
     this._target = target;
   }
   
@@ -89,6 +90,10 @@ class MockRxChar {
   startNotifications() {
     this._notify = true;
     return MockDelay.promise();
+  }
+
+  addEventListener(eventName, eventHandler) {
+    //
   }
 
   stopNotifications() {
